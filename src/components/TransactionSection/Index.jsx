@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import filterTransactions from '../../utils/filterTransactions';
 import TransactionList from './TransactionList';
 import TransactionFilter from './TransactionFilter';
@@ -12,6 +12,7 @@ const TransactionSection = ({ transactions, setTransactions }) => {
     const [startDateFilter, setStartDateFilter] = useState(null);
     const [endDateFilter, setEndDateFilter] = useState(null);
     const [tempTransactions, setTempTransactions] = useState(transactions);
+    const transactionHeadRef = useRef(null);
 
     useEffect(() => {
         filterTransactions({ transactions, setTempTransactions, search, startDateFilter, endDateFilter, categoryFilter, timeFilter, amountFilter });
@@ -19,12 +20,12 @@ const TransactionSection = ({ transactions, setTransactions }) => {
 
     return (
         <div className="transaction-section flex flex-col">
-            <div className="transaction-head flex flex-col">
+            <div className="transaction-head flex flex-col" ref={transactionHeadRef}>
                 <h2>Transactions</h2>
                 <TranscationSearch setSearch={setSearch} />
                 <TransactionFilter categoryFilter={categoryFilter} amountFilter={amountFilter} setCategoryFilter={setCategoryFilter} setTimeFilter={setTimeFilter} timeFilter={timeFilter} setAmountFilter={setAmountFilter} setStartDateFilter={setStartDateFilter} startDateFilter={startDateFilter} setEndDateFilter={setEndDateFilter} />
             </div>
-            <TransactionList transactions={tempTransactions} setTransactions={setTransactions} />
+            <TransactionList transactions={tempTransactions} setTransactions={setTransactions} transactionHeadRef={transactionHeadRef} />
         </div>
     );
 }

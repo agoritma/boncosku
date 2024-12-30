@@ -3,8 +3,32 @@ import supabaseDelTransaction from "../../api/supabaseDelTransaction"
 import TrashIcon from "../../assets/icon/TrashIcon";
 import TrafficUp from "../../assets/icon/TrafficUp";
 import TrafficDown from "../../assets/icon/TrafficDown";
+import { useEffect, useRef } from "react";
 
-const TransactionList = ({ transactions, setTransactions }) => {
+const TransactionList = ({ transactions, setTransactions, transactionHeadRef }) => {
+    const transactionListRef = useRef([]);
+
+    const handleScroll = () => {
+        const headRect = transactionHeadRef.current.getBoundingClientRect();
+        transactionListRef.current.forEach((ref, index) => {
+            if (ref) {
+                const itemRect = ref.getBoundingClientRect();
+                if (itemRect.top < headRect.top + 50) {
+                    ref.style.opacity = 0;
+                } else {
+                    ref.style.opacity = 1;
+                }
+            }
+        });
+    };
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        }
+    }, []);
+    
     const deleteTransaction = async (id) => {
         const updatedTransactions = transactions.filter(transaction => transaction.id !== id);
         setTransactions(updatedTransactions)
@@ -17,8 +41,8 @@ const TransactionList = ({ transactions, setTransactions }) => {
 
     return (
         <div className="transaction-list flex flex-col">
-            {transactions.map((transaction) => (
-                <div key={transaction.id} className="transaction-item flex">
+            {transactions.map((transaction, index) => (
+                <div key={transaction.id} className="transaction-item flex" ref={el => transactionListRef.current[index] = el}>
                     <div className="transaction-icon button" onClick={() => deleteTransaction(transaction.id)}>
                         {transaction.transaction_category === 'income' ?
                             (<div className="transaction-icon-container income">
