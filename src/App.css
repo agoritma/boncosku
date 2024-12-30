@@ -88,6 +88,8 @@ main {
 .user-section {
     width: 100%;
     max-width: 400px;
+    top: 50px;
+    position: sticky;
 }
 
 .recaps {
@@ -234,6 +236,10 @@ main {
 .transaction-head {
     gap: 15px;
     z-index: 9999;
+    position: sticky;
+    top: 50px;
+    background-color: var(--main-color);
+    padding-bottom: 5px;
 }
 
 .transaction-section h2 {
@@ -318,8 +324,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .transaction-list {
-    height: 700px;
-    overflow-y: scroll;
     width: 100%;
     gap: 16px;
 }
