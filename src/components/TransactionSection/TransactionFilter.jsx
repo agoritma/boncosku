@@ -31,9 +31,9 @@ const TransactionFilter = ({ categoryFilter, amountFilter, setCategoryFilter, se
                 )
             : <button className="button button-box" onClick={() => setAmountFilter('highest')}>Highest</button>}
             <div className="date-filter">
-                <input className="button-box" type="date" onChange={(e) => setStartDateFilter(e.target.value)} />
+                <input aria-label="startdate-filter" className="button-box" type="date" onChange={(e) => setStartDateFilter(e.target.value)} />
                 <span> - </span>
-                <input className="button-box" type="date" min={startDateFilter} onChange={(e) => setEndDateFilter(e.target.value)} />
+                <input aria-label="enddate-filter" className="button-box" type="date" min={startDateFilter} onChange={(e) => setEndDateFilter(e.target.value)} />
             </div>
         </div>
     )
