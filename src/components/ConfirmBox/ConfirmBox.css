@@ -1,0 +1,42 @@
+.overlay {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    background-color: rgba(0, 0, 0, .3);
+    z-index: 999999999999;
+    top: 0;
+    left: 0;
+}
+
+.confirm-box {
+    position: absolute;
+    z-index: 1;
+    background-color: white;
+    padding: 15px 25px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    max-width: 350px;
+    text-align: center;
+    gap: 20px;
+}
+
+.message-section, .button-section {
+    gap: 10px;
+}
+
+.confirm-box svg {
+    align-self: center;
+    width: 50px;
+    fill: var(--alter-accent-color);
+}
+
+.confirm-box .button-section .button {
+    width: 100%;
+    padding: 10px 20px;
+}
