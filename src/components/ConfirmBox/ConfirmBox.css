@@ -30,13 +30,29 @@
     gap: 10px;
 }
 
-.confirm-box svg {
-    align-self: center;
-    width: 50px;
-    fill: var(--alter-accent-color);
+.message-section svg {
+    align-self: center !important;
+    width: 50px !important;
+    fill: var(--alter-accent-color) !important;
+    position: relative !important;
+    transform: unset !important;
+    -webkit-transform: unset !important;
+    -moz-transform: unset !important;
+    -ms-transform: unset !important;
+    -o-transform: unset !important;
+    left: unset !important;
+    top: unset !important;
 }
 
 .confirm-box .button-section .button {
     width: 100%;
     padding: 10px 20px;
+}
+
+.confirm-box .button-section .button.danger {
+    background-color: var(--alter-accent-color);
+}
+
+.confirm-box .button-section .button.danger:hover {
+    background-color: var(--darker-alter-accent-color);
 }

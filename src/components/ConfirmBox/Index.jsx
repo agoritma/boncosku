@@ -19,7 +19,7 @@ const ConfirmBox = ({ type, message, isConfirmation, onConfirm, onCancel }) => {
                 </div>
                 <div className="button-section flex">
                     {isConfirmation && <button className={"button button-box"} onClick={onCancel}>Cancel</button>}
-                    <button className={`button button-box ${isConfirmation ? 'selected' : ''}`} onClick={onConfirm}>Confirm</button>
+                    <button className={`button button-box ${isConfirmation ? 'danger' : ''}`} onClick={onConfirm}>Confirm</button>
                 </div>
             </div>
         </div>

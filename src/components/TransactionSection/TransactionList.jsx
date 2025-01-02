@@ -3,10 +3,13 @@ import supabaseDelTransaction from "../../api/supabaseDelTransaction"
 import TrashIcon from "../../assets/icon/TrashIcon";
 import TrafficUp from "../../assets/icon/TrafficUp";
 import TrafficDown from "../../assets/icon/TrafficDown";
-import { useEffect, useRef } from "react";
+import ConfirmBox from "../ConfirmBox/Index"
+import { useState, useEffect, useRef } from "react";
 
 const TransactionList = ({ transactions, setTransactions, transactionHeadRef }) => {
     const transactionListRef = useRef([]);
+    const [showConfirmBox, setShowConfirmBox] = useState(false);
+    const [transactionToDelete, setTransactionToDelete] = useState(null);
 
     const handleScroll = () => {
         const headRect = transactionHeadRef.current.getBoundingClientRect();
@@ -29,21 +32,33 @@ const TransactionList = ({ transactions, setTransactions, transactionHeadRef }) 
         }
     }, []);
     
-    const deleteTransaction = async (id) => {
-        const updatedTransactions = transactions.filter(transaction => transaction.id !== id);
+    const handleDeleteClick = (transaction) => {
+        setTransactionToDelete(transaction);
+        setShowConfirmBox(true);
+    }
+
+    const confirmDeleteTransaction = async () => {
+        const updatedTransactions = transactions.filter(transaction => transaction.id !== transactionToDelete.id);
         setTransactions(updatedTransactions)
-        const { error } = await supabaseDelTransaction(id);
+        const { error } = await supabaseDelTransaction(transactionToDelete.id);
         if (error) {
             console.error('Error deleting transaction:', error);
             return;
         }
+        setShowConfirmBox(false);
+        setTransactionToDelete(null);
+    }
+
+    const cancelDeleteTransaction = () => {
+        setShowConfirmBox(false);
+        setTransactionToDelete(null);
     }
 
     return (
         <div className="transaction-list flex flex-col">
             {transactions.map((transaction, index) => (
                 <div key={transaction.id} className="transaction-item flex" ref={el => transactionListRef.current[index] = el}>
-                    <div className="transaction-icon button" onClick={() => deleteTransaction(transaction.id)}>
+                    <div className="transaction-icon button" onClick={() => handleDeleteClick(transaction)}>
                         {transaction.transaction_category === 'income' ?
                             (<div className="transaction-icon-container income">
                                 <TrashIcon className={'delete-icon'} />
@@ -69,6 +84,15 @@ const TransactionList = ({ transactions, setTransactions, transactionHeadRef }) 
                     </div>
                 </div>
             ))}
+            {showConfirmBox && (
+                <ConfirmBox 
+                    type={'warning'}
+                    message={`Are you sure you want to delete transaction "${transactionToDelete.transaction_note}"?`}
+                    isConfirmation={true}
+                    onConfirm={confirmDeleteTransaction}
+                    onCancel={cancelDeleteTransaction}
+                />
+            )}
         </div>
     )
 }
