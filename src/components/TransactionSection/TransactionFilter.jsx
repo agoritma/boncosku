@@ -13,7 +13,7 @@ const TransactionFilter = ({ categoryFilter, amountFilter, setCategoryFilter, se
                         </button>
                         :
                         <button className="button button-box flex selected" onClick={() => setCategoryFilter(null)}>
-                            <TrafficUp />
+                            <TrafficDown />
                             <span>Expense</span>
                         </button>
                     )
