@@ -25,12 +25,13 @@ const submitTransaction = async ({transactionCategory, transactionNote, transact
             .from('boncosku_users_transactions')
             .insert(newTransaction)
             .select();
-
         if (error) {
-            console.error(error);
-            return;
+            alert.error(error)
+            return "error";
         }
+        return "sucess"
     }
+    return "error"
 }
 
 export default submitTransaction;

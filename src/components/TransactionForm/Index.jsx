@@ -3,14 +3,14 @@ import TransactionInput from "./TransactionInput";
 import { useState } from "react";
 import submitTransaction from "../../utils/submitTransaction";
 
-const TransactionFormContainer = ({ transactionsList, updateTransactionList, userInfo }) => {
+const TransactionFormContainer = ({ transactionsList, updateTransactionList, userInfo, setShowTransactionForm }) => {
     const [transactionCategory, setTransactionCategory] = useState('income');
     const [transactionAmount, setTransactionAmount] = useState('');
     const [transactionDate, setTransactionDate] = useState(null);
     const [transactionNote, setTransactionNote] = useState(null);
 
-    const handleSubmitTransaction = () => {
-        submitTransaction({
+    const handleSubmitTransaction = async () => {
+        const submitTransactionStatus = await submitTransaction({
             transactionCategory,
             transactionNote,
             transactionAmount,
@@ -22,6 +22,12 @@ const TransactionFormContainer = ({ transactionsList, updateTransactionList, use
             userInfo,
             transactionsList
         });
+        console.log(submitTransactionStatus)
+        if (submitTransactionStatus === "sucess") {
+            setShowTransactionForm(false)
+        } else {
+            setShowTransactionForm(true)
+        }
     }
 
     return (

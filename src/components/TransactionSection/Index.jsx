@@ -3,8 +3,9 @@ import filterTransactions from '../../utils/filterTransactions';
 import TransactionList from './TransactionList';
 import TransactionFilter from './TransactionFilter';
 import TranscationSearch from './TransactionSearch';
+import Plus from '../../assets/icon/Plus';
 
-const TransactionSection = ({ transactions, setTransactions }) => {
+const TransactionSection = ({ transactions, setTransactions, setShowTransactionForm }) => {
     const [search, setSearch] = useState('');
     const [timeFilter, setTimeFilter] = useState('newest');
     const [amountFilter, setAmountFilter] = useState(null);
@@ -21,7 +22,13 @@ const TransactionSection = ({ transactions, setTransactions }) => {
     return (
         <div className="transaction-section flex flex-col">
             <div className="transaction-head flex flex-col" ref={transactionHeadRef}>
-                <h2>Transactions</h2>
+                <div id='upper' className="flex">
+                    <h2>Transactions</h2>
+                    <button className="button button-box flex selected" onClick={() => setShowTransactionForm(true)}>
+                        <Plus />
+                        <span>Add Transaction</span>
+                    </button>
+                </div>
                 <TranscationSearch setSearch={setSearch} />
                 <TransactionFilter categoryFilter={categoryFilter} amountFilter={amountFilter} setCategoryFilter={setCategoryFilter} setTimeFilter={setTimeFilter} timeFilter={timeFilter} setAmountFilter={setAmountFilter} setStartDateFilter={setStartDateFilter} startDateFilter={startDateFilter} setEndDateFilter={setEndDateFilter} />
             </div>

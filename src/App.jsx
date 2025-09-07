@@ -12,6 +12,7 @@ function App() {
 	const [userTransactions, setUserTransactions] = useState([])
 	const [userInfo, setUserInfo] = useState(null)
 	const [userRecaps, setUserRecaps] = useState(null)
+	const [showTransactionForm, setShowTransactionForm] = useState(false)
 
 	useEffect(() => {
 		const initializeApp = async () => {
@@ -63,10 +64,27 @@ function App() {
 	return (
 		<main>
 			<aside className='user-section flex flex-col'>
-				<UserRecaps userInfo={userInfo} userRecaps={userRecaps} />
-				<TransactionFormContainer transactionsList={userTransactions} updateTransactionList={setUserTransactions} userInfo={userInfo} />
+				<UserRecaps
+				userInfo={userInfo}
+				userRecaps={userRecaps} />
 			</aside>
-			<TransactionSection setTransactions={setUserTransactions} transactions={userTransactions}/>
+			<TransactionSection
+				setTransactions={setUserTransactions}
+				setShowTransactionForm={setShowTransactionForm}
+				transactions={userTransactions}
+			/>
+			{ showTransactionForm && (
+				<div className="overlay">
+					{ showTransactionForm && (
+						<TransactionFormContainer
+						transactionsList={userTransactions}
+						updateTransactionList={setUserTransactions}
+						userInfo={userInfo}
+						setShowTransactionForm={setShowTransactionForm}
+						/>
+					)}
+				</div>
+			) }
 		</main>
 	)
 }
