@@ -8,25 +8,33 @@ const UserInoutRecaps = ({balanceInfo, balanceHide}) => {
     const [networthHide, setNetworthHide] = useState(balanceHide);
     const [tempIncomeBalance, setTempIncomeBalance] = networthHide ? useState('*******') : useState(moneyFormat(balanceInfo.incomeBalance));
     const [tempOutcomeBalance, setTempOutcomeBalance] = networthHide ? useState('*******') : useState(moneyFormat(balanceInfo.outcomeBalance));
+    const [tempBalance, setTempBalance] = useState(moneyFormat(balanceInfo.balance));
 
     useEffect(() => {
         if (networthHide) {
             setTempIncomeBalance('*******');
             setTempOutcomeBalance('*******');
+            setTempBalance('*******');
         } else {
             setTempIncomeBalance(moneyFormat(balanceInfo.incomeBalance));
             setTempOutcomeBalance(moneyFormat(balanceInfo.outcomeBalance));
+            setTempBalance(moneyFormat(balanceInfo.balance));
         }
     }, [balanceInfo, networthHide]);
 
     return (
-        <div className="inout-recaps round-15 flex flex-space-between pad-22">
+        <div className="inout-recaps round-15 flex pad-22">
             <div className="inout-section flex flex-col">
-                <RecapsAmount balance={tempIncomeBalance} percentage={balanceInfo.incomePercentage} networthHide={networthHide} recap={"in"} />
-                <RecapsAmount balance={tempOutcomeBalance} percentage={balanceInfo.outcomePercentage} networthHide={networthHide} recap={"out"} />
-            </div>
-            <div className="button-section">
-                {networthHide ? <EyeIconSlash className={"button"} onClick={() => setNetworthHide(!networthHide)} /> : <EyeIcon className={"button"} onClick={() => setNetworthHide(!networthHide)} /> }
+                <div className="flex flex-space-between">
+                    <RecapsAmount balance={tempBalance} networthHide={networthHide} recap={"in"} isIncome={"balance"} />
+                    <div className="button-section">
+                        {networthHide ? <EyeIconSlash className={"button"} onClick={() => setNetworthHide(!networthHide)} /> : <EyeIcon className={"button"} onClick={() => setNetworthHide(!networthHide)} /> }
+                    </div>
+                </div>
+                <div className="flex" style={{gap: '16px'}}>
+                    <RecapsAmount balance={tempIncomeBalance} percentage={balanceInfo.incomePercentage} networthHide={networthHide} recap={"out"}  isIncome={true}/>
+                    <RecapsAmount balance={tempOutcomeBalance} percentage={balanceInfo.outcomePercentage} networthHide={networthHide} recap={"out"} isIncome={false} />
+                </div>
             </div>
         </div>
     )

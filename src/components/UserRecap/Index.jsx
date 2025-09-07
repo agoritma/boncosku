@@ -6,24 +6,23 @@ import getDayGreeting from '../../utils/getDayGreeting';
 import { useState, useEffect } from 'react';
 
 const Recaps = ({userInfo, userRecaps}) => {
-	const [userAvatar, setUserAvatar] = useState(null)
+	const [userAvatar, setUserAvatar] = useState(userImageDefault)
 
 	useEffect(() => {
 		if (userInfo) {
 			const fetchUserProfile = async () => {
 				const userProfile = await supabaseFetchUserProfile(userInfo.user_id)
-				setUserAvatar(userProfile.publicUrl)
+				setUserAvatar(userProfile.publicUrl ? userImageDefault : userProfile.publicUrl)
 			}
 			fetchUserProfile()
 		}
 	}, [userInfo])
-
     return (
 		<div className="recaps flex flex-col container container-black round-15 pad-22">
 			<div className="menu flex flex-align-center flex-space-between">
 				<h1 className='app-name'>Boncos<span>Ku</span></h1>
 				<div className="user">
-				{userInfo ? <img className='button' src={userAvatar} alt="user" /> : <img className='button' src={userImageDefault} alt="user" /> }
+				<img className='button' src={userAvatar} alt="user" />
 				</div>
 			</div>
 
