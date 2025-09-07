@@ -1,5 +1,5 @@
 const calculateRecaps = (transactions) => {
-    const currentMonth = new Date().getMonth() + 1; // getMonth() returns 0-11
+    const currentMonth = new Date().getMonth() + 1;
     const previousMonth = currentMonth === 1 ? 12 : currentMonth - 1;
     const currentYear = new Date().getFullYear();
     const previousYear = currentMonth === 1 ? currentYear - 1 : currentYear;
@@ -41,6 +41,7 @@ const calculateRecaps = (transactions) => {
 
     return ({
         balanceStatus: {
+            balance: currentIncomeBalance - currentOutcomeBalance,
             incomeBalance: currentIncomeBalance,
             outcomeBalance: currentOutcomeBalance,
             incomePercentage: {
