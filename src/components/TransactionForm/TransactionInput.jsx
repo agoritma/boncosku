@@ -18,7 +18,7 @@ const TransactionInput = ({ transactionCategory, transactionNote, transactionDat
                     </span>
                     <input type="text" id="amount" inputMode="numeric" placeholder="30.000" pattern="[0-9]*" value={moneyFormat(Number(transactionAmount)) || ''} onChange={handleTransactionAmount}/>
                 </div>
-                <input aria-label="transaction-date" type="date" value={transactionDate || ''} id="date" onChange={(e) => updateTransactionDate(e.target.value)}/>
+                <input aria-label="transaction-date" type="datetime-local" value={transactionDate || ''} id="date" onChange={(e) => updateTransactionDate(e.target.value)}/>
             </div>
         </>
     )
