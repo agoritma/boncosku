@@ -40,13 +40,13 @@ const TransactionList = ({ transactions, setTransactions, transactionHeadRef }) 
     const confirmDeleteTransaction = async () => {
         const updatedTransactions = transactions.filter(transaction => transaction.id !== transactionToDelete.id);
         setTransactions(updatedTransactions)
+        setShowConfirmBox(false);
+        setTransactionToDelete(null);
         const { error } = await supabaseDelTransaction(transactionToDelete.id);
         if (error) {
             console.error('Error deleting transaction:', error);
             return;
         }
-        setShowConfirmBox(false);
-        setTransactionToDelete(null);
     }
 
     const cancelDeleteTransaction = () => {
@@ -71,8 +71,8 @@ const TransactionList = ({ transactions, setTransactions, transactionHeadRef }) 
                         }
                     </div>
                     <div className="transaction-info flex flex-col">
-                        <span className="transaction-category">{transaction.transaction_note}</span>
-                        <span className="transaction-date">{transaction.transaction_date}</span>
+                        <span className="transaction-note">{transaction.transaction_note}</span>
+                        <span className="transaction-date">{new Date(transaction.transaction_date).toLocaleString(navigator.language, {timeStyle: "short", dateStyle: "short"})}</span>
                     </div>
                     <div className="transaction-amount flex flex-col">
                         <span>
@@ -87,7 +87,7 @@ const TransactionList = ({ transactions, setTransactions, transactionHeadRef }) 
             {showConfirmBox && (
                 <ConfirmBox 
                     type={'warning'}
-                    message={`Are you sure you want to delete transaction "${transactionToDelete.transaction_note}"?`}
+                    message={`Are you sure want to delete transaction "${transactionToDelete.transaction_note}"?`}
                     isConfirmation={true}
                     onConfirm={confirmDeleteTransaction}
                     onCancel={cancelDeleteTransaction}
