@@ -6,6 +6,7 @@ import UserRecaps from './components/UserRecap/Index'
 import TransactionSection from './components/TransactionSection/Index'
 import TransactionFormContainer from './components/TransactionForm/Index'
 import calculateRecaps from './utils/calculateRecaps'
+import RecapChart from './components/RecapChart/index'
 import './App.css'
 
 function App() {
@@ -62,30 +63,34 @@ function App() {
 	}, [userTransactions])
 
 	return (
+		<>
 		<main>
 			<aside className='user-section flex flex-col'>
 				<UserRecaps
 				userInfo={userInfo}
 				userRecaps={userRecaps} />
+				<RecapChart transactionData={userTransactions}/>
 			</aside>
 			<TransactionSection
 				setTransactions={setUserTransactions}
 				setShowTransactionForm={setShowTransactionForm}
 				transactions={userTransactions}
 			/>
-			{ showTransactionForm && (
-				<div className="overlay">
-					{ showTransactionForm && (
-						<TransactionFormContainer
-						transactionsList={userTransactions}
-						updateTransactionList={setUserTransactions}
-						userInfo={userInfo}
-						setShowTransactionForm={setShowTransactionForm}
-						/>
-					)}
-				</div>
-			) }
 		</main>
+		{ showTransactionForm && (
+			<>
+			<div className="overlay" onClick={() => setShowTransactionForm(false)} />
+			{ showTransactionForm && (
+				<TransactionFormContainer
+				transactionsList={userTransactions}
+				updateTransactionList={setUserTransactions}
+				userInfo={userInfo}
+				setShowTransactionForm={setShowTransactionForm}
+				/>
+			)}
+			</>
+		)}
+		</>
 	)
 }
 

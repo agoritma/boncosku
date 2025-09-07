@@ -22,7 +22,7 @@ const TransactionSection = ({ transactions, setTransactions, setShowTransactionF
     return (
         <div className="transaction-section flex flex-col">
             <div className="transaction-head flex flex-col" ref={transactionHeadRef}>
-                <div id='upper' className="flex">
+                <div id='upper' className="flex flex-align-center">
                     <h2>Transactions</h2>
                     <button className="button button-box flex selected" onClick={() => setShowTransactionForm(true)}>
                         <Plus />

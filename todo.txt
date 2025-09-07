@@ -1,0 +1,23 @@
+
+Short:
+    Recaps:
+        - fix recap chart biar yang bukan bulannya gk keitung
+        - tambahin filter di recap chart by year-month
+
+Long:
+    Transaction:
+        - tambahin kolom category di db
+        - tambahin input category di form pake dropdown
+        - filter category
+    
+    Recaps:
+        - tambahin chart category expenses
+
+TBO:
+    Transaction:
+        - tambahin menu buat nambah kategori baru sesuai keinginan user
+    
+    Auth:
+        - Bikin login
+        - bikin logout
+        - bikin signup

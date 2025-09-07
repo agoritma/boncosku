@@ -39,9 +39,18 @@ const calculateRecaps = (transactions) => {
     const incomePercentageStatus = incomePercentageChange > 0 ? 'up' : 'down';
     const outcomePercentageStatus = outcomePercentageChange > 0 ? 'up' : 'down';
 
+    let currBalance = 0;
+    transactions.forEach(item => {
+        if (item.transaction_category === "income") {
+            currBalance += item.transaction_amount
+        } else if (item.transaction_category === "outcome") {
+            currBalance = currBalance - item.transaction_amount
+        }
+    })
+
     return ({
         balanceStatus: {
-            balance: currentIncomeBalance - currentOutcomeBalance,
+            balance: currBalance,
             incomeBalance: currentIncomeBalance,
             outcomeBalance: currentOutcomeBalance,
             incomePercentage: {
