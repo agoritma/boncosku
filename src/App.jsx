@@ -38,8 +38,25 @@ function App() {
 
 	useEffect(() => {
 		if (userTransactions.length > 0) {
-			const recaps = calculateRecaps(userTransactions)
-			setUserRecaps(recaps)
+			const recaps = calculateRecaps(userTransactions);
+			setUserRecaps(recaps);
+		} else {
+			const dummyRecaps = {
+				balanceStatus: {
+					balance: 0,
+					incomeBalance: 0,
+					outcomeBalance: 0,
+					incomePercentage: {
+						status: 'up',
+						amount: 0
+					},
+					outcomePercentage: {
+						status: 'down',
+						amount: 0
+					}
+				}
+			}
+			setUserRecaps(dummyRecaps)
 		}
 	}, [userTransactions])
 
