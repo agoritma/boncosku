@@ -13,7 +13,6 @@ const TransactionSection = ({ transactions, setTransactions, setShowTransactionF
     const [startDateFilter, setStartDateFilter] = useState(null);
     const [endDateFilter, setEndDateFilter] = useState(null);
     const [tempTransactions, setTempTransactions] = useState(transactions);
-    const transactionHeadRef = useRef(null);
 
     useEffect(() => {
         filterTransactions({ transactions, setTempTransactions, search, startDateFilter, endDateFilter, categoryFilter, timeFilter, amountFilter });
@@ -21,7 +20,7 @@ const TransactionSection = ({ transactions, setTransactions, setShowTransactionF
 
     return (
         <div className="transaction-section flex flex-col">
-            <div className="transaction-head flex flex-col" ref={transactionHeadRef}>
+            <div className="transaction-head flex flex-col">
                 <div id='upper' className="flex flex-align-center">
                     <h2>Transactions</h2>
                     <button className="button button-box flex selected" onClick={() => setShowTransactionForm(true)}>
@@ -32,7 +31,7 @@ const TransactionSection = ({ transactions, setTransactions, setShowTransactionF
                 <TranscationSearch setSearch={setSearch} />
                 <TransactionFilter categoryFilter={categoryFilter} amountFilter={amountFilter} setCategoryFilter={setCategoryFilter} setTimeFilter={setTimeFilter} timeFilter={timeFilter} setAmountFilter={setAmountFilter} setStartDateFilter={setStartDateFilter} startDateFilter={startDateFilter} setEndDateFilter={setEndDateFilter} />
             </div>
-            <TransactionList transactions={tempTransactions} setTransactions={setTransactions} transactionHeadRef={transactionHeadRef} />
+            <TransactionList transactions={transactions} tempTransactions={tempTransactions} setTransaction={setTransactions} setTempTransactions={setTempTransactions} />
         </div>
     );
 }
