@@ -10,6 +10,7 @@ import {
 } from 'chart.js';
 import { Bar } from "react-chartjs-2";
 import groupTransactionChart from '../../utils/groupTransactionChart';
+import { useState, useEffect } from "react";
 
 ChartJS.register(
     CategoryScale,
@@ -22,7 +23,17 @@ ChartJS.register(
 ChartJS.defaults.font.family = "'Outfit', sans-serif"
 
 const RecapChart = ({transactionData}) => {
-    const {labels, incomeArr, outcomeArr} = groupTransactionChart(transactionData)
+    const [chartDate, setChartDate] = useState(() => {
+        const now = new Date();
+        return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+    })
+    const [chartData, setChartData] = useState(() => groupTransactionChart(transactionData, chartDate))
+    
+    useEffect(() => {
+        setChartData(groupTransactionChart(transactionData, chartDate))
+    }, [transactionData, chartDate])
+    
+    const {labels, incomeArr, outcomeArr} = chartData
 
     const data = {
         labels,
@@ -36,7 +47,7 @@ const RecapChart = ({transactionData}) => {
                 categoryPercentage: 0.5
             },
             {
-                label: "Outcome",
+                label: "Expense",
                 data: outcomeArr,
                 backgroundColor: '#ff9494',
                 barPercentage: 0.7,
@@ -48,7 +59,15 @@ const RecapChart = ({transactionData}) => {
 
     return (
         <div className="chart-container">
-            {/* <h2>See your transaction on this month</h2> */}
+            <div id="header" className="flex mb-10">
+                <h3>See your transaction</h3>
+                <input name="chart-date"
+                    className="button-box"
+                    type="month"
+                    defaultValue={chartDate}
+                    onChange={(e) => setChartDate(e.target.value)}
+                />
+            </div>
             <Bar data={data}
             options={{
                 plugins: {
