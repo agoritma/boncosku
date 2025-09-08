@@ -3,6 +3,16 @@ Short:
     Recaps:
         - fix recap chart biar yang bukan bulannya gk keitung
         - tambahin filter di recap chart by year-month
+    
+    DB:
+        - tambahin current balance ke db user
+        - bikin db buat chart
+            - db buat monthly expense by date chart
+            - db buat monthly expense by category chart
+
+    API:
+        - batasin narik transaction cuma buat bulan ini dan 1 bulan sebelumnya
+        - kalo narik di bulan yg lama banget narik baru berdasarkan filter
 
 Long:
     Transaction:
