@@ -10,6 +10,14 @@
   --darker-alter-accent-color: #ed6e6e;
 }
 
+.white-bar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  height: 200px;
+}
+
 .button,
 button,
 .button-box {
@@ -93,6 +101,7 @@ main {
   max-width: 500px;
   top: 50px;
   position: sticky;
+  z-index: 9;
 }
 
 .recaps {

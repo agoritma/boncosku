@@ -15,26 +15,30 @@ function App() {
 	const [userRecaps, setUserRecaps] = useState(null)
 	const [showTransactionForm, setShowTransactionForm] = useState(false)
 
-	useEffect(() => {
-		const initializeApp = async () => {
-			try {
-				await supabaseAuth()
-				const { data: transactionsData, error: transactionsError } = await supabaseFetchTransaction()
-				if (transactionsError) throw transactionsError
-				setUserTransactions(transactionsData)
+	const initializeApp = async () => {
+		try {
+			await supabaseAuth()
+			const date = new Date();
+			const month = String(date.getMonth() + 1).padStart(2, '0')
+			const lastDate = `${date.getFullYear()-1}-${month}-01T00:00`
+			const { data: transactionsData, error: transactionsError } = await supabaseFetchTransaction(lastDate)
+			if (transactionsError) throw transactionsError
+			setUserTransactions(transactionsData)
 
-				if (userTransactions.length > 0) {
-					const recaps = calculateRecaps(transactionsData)
-					setUserRecaps(recaps)
-				}
-				
-				const { data: userInfoData, error: userInfoError } = await supabaseFetchUserInfo()
-				if (userInfoError) throw userInfoError
-				setUserInfo(userInfoData[0])
-			} catch (error) {
-				console.error('Error initializing app:', error)
+			if (userTransactions.length > 0) {
+				const recaps = calculateRecaps(transactionsData)
+				setUserRecaps(recaps)
 			}
+			
+			const { data: userInfoData, error: userInfoError } = await supabaseFetchUserInfo()
+			if (userInfoError) throw userInfoError
+			setUserInfo(userInfoData[0])
+		} catch (error) {
+			console.error('Error initializing app:', error)
 		}
+	}
+
+	useEffect(() => {
 		initializeApp()
 	}, [])
 
@@ -76,6 +80,7 @@ function App() {
 				setShowTransactionForm={setShowTransactionForm}
 				transactions={userTransactions}
 			/>
+			<div className="white-bar"></div>
 		</main>
 		{ showTransactionForm && (
 			<>
