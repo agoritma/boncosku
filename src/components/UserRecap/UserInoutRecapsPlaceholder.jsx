@@ -7,8 +7,8 @@ const UserInoutRecapsPlaceholder = () => {
             <div className="inout-section flex flex-col">
                 <div className="in">
                     <span className='flex flex-align-center'>
-                        Your Income
                         <TrafficUp />
+                        Your Income
                     </span>
                     <p className='flex'>
                         Loading...
@@ -16,8 +16,8 @@ const UserInoutRecapsPlaceholder = () => {
                 </div>
                 <div className="out">
                     <span className='flex flex-align-center'>
-                        Your Expense
                         <TrafficDown />
+                        Your Expense
                     </span>
                     <p className='flex'>
                         Loading...
