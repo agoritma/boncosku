@@ -1,7 +1,7 @@
 import TrafficUp from '../../assets/icon/TrafficUp'
 import TrafficDown from '../../assets/icon/TrafficDown'
 
-const TransactionFilter = ({ categoryFilter, amountFilter, setCategoryFilter, setTimeFilter, timeFilter, setAmountFilter, setStartDateFilter, startDateFilter, setEndDateFilter }) => {
+const TransactionFilter = ({ categoryFilter, amountFilter, setCategoryFilter, setTimeFilter, timeFilter, setAmountFilter, setStartDateFilter, startDateFilter, setEndDateFilter, endDateFilter }) => {
     return (
         <div className="filter-section flex">
             <div className="filter flex">
@@ -33,9 +33,9 @@ const TransactionFilter = ({ categoryFilter, amountFilter, setCategoryFilter, se
                 : <button className="button button-box flex" onClick={() => setAmountFilter('highest')}><span>Highest</span></button>}
             </div>
             <div className="date-filter flex">
-                <input aria-label="startdate-filter" className="button-box" type="date" onChange={(e) => setStartDateFilter(e.target.value)} />
+                <input name="startdate-filter" className="button-box" type="date" max={endDateFilter} onChange={(e) => setStartDateFilter(e.target.value)} />
                 <span> - </span>
-                <input aria-label="enddate-filter" className="button-box" type="date" min={startDateFilter} onChange={(e) => setEndDateFilter(e.target.value)} />
+                <input name="enddate-filter" className="button-box" type="date" min={startDateFilter} onChange={(e) => setEndDateFilter(e.target.value)} />
             </div>
         </div>
     )

@@ -5,6 +5,7 @@ import TrafficUp from "../../assets/icon/TrafficUp";
 import TrafficDown from "../../assets/icon/TrafficDown";
 import ConfirmBox from "../ConfirmBox/Index"
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import TransactionListInfo from "./TransactionListInfo";
 
 const TransactionItem = React.memo(function TransactionItem({ transaction, onDelete, moneyFormat }) {
     return (
@@ -50,6 +51,8 @@ const TransactionList = ({ transactions=[], tempTransactions=[], setTransaction,
     const [visibleCount, setVisibleCount] = useState(Math.min(BATCH, tempTransactions.length))
     const [isLoading, setIsLoading] = useState(false)
     const sentinelRef = useRef(null)
+
+    const [isAllTransaction, setIsAllTransaction] = useState(false)
 
     useEffect(() => {
         setVisibleCount(Math.min(BATCH, tempTransactions.length))
@@ -110,6 +113,32 @@ const TransactionList = ({ transactions=[], tempTransactions=[], setTransaction,
             {tempTransactions.slice(0, visibleCount).map((t) => (
                 <TransactionItem key={t.id} transaction={t} onDelete={stableDelete} moneyFormat={moneyFormat} />
             ))}
+            {transactions.length === 0 ? <TransactionListInfo text={'There nothing here! try add some transaction'} /> : null}
+            {!isAllTransaction ? (
+                <>
+                    {visibleCount >= transactions.length && transactions.length !== 0 ? (
+                        <TransactionListInfo
+                            text={"Feel like you can't find your transaction?"}
+                            fetchMoreTransaction={true}
+                            setTransaction={setTransaction}
+                            setIsAllTransaction={setIsAllTransaction}
+                        />
+                    ) : null}
+                    {transactions.length !== 0 && tempTransactions.length === 0 ? (
+                        <TransactionListInfo
+                            text={"Feel like you can't find your transaction?"}
+                            fetchMoreTransaction={true}
+                            setTransaction={setTransaction}
+                            setIsAllTransaction={setIsAllTransaction}
+                        />
+                    ) : null}
+                </>
+            ) : (
+                <>
+                    {transactions.length !== 0 && tempTransactions.length === 0 ? <TransactionListInfo text={"Still can't find it? try add that transaction"} /> : null}
+                    {visibleCount >= transactions.length && transactions.length !== 0 ? <TransactionListInfo text={"There nothing left!"} /> : null}
+                </>
+            )}
             <span ref={sentinelRef} style={{height: '1px'}} />
             {showConfirmBox && (
                 <ConfirmBox 
