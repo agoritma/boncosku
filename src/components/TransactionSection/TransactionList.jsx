@@ -4,33 +4,11 @@ import TrashIcon from "../../assets/icon/TrashIcon";
 import TrafficUp from "../../assets/icon/TrafficUp";
 import TrafficDown from "../../assets/icon/TrafficDown";
 import ConfirmBox from "../ConfirmBox/Index"
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 
-const TransactionList = ({ transactions, setTransactions, transactionHeadRef }) => {
-    const transactionListRef = useRef([]);
+const TransactionList = ({ transactions, tempTransactions, setTransaction, setTempTransactions }) => {
     const [showConfirmBox, setShowConfirmBox] = useState(false);
     const [transactionToDelete, setTransactionToDelete] = useState(null);
-
-    const handleScroll = () => {
-        const headRect = transactionHeadRef.current.getBoundingClientRect();
-        transactionListRef.current.forEach((ref, index) => {
-            if (ref) {
-                const itemRect = ref.getBoundingClientRect();
-                if (itemRect.top < headRect.top + 50) {
-                    ref.style.opacity = 0;
-                } else {
-                    ref.style.opacity = 1;
-                }
-            }
-        });
-    };
-
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        }
-    }, []);
     
     const handleDeleteClick = (transaction) => {
         setTransactionToDelete(transaction);
@@ -39,7 +17,8 @@ const TransactionList = ({ transactions, setTransactions, transactionHeadRef }) 
 
     const confirmDeleteTransaction = async () => {
         const updatedTransactions = transactions.filter(transaction => transaction.id !== transactionToDelete.id);
-        setTransactions(updatedTransactions)
+        setTransaction(updatedTransactions)
+        setTempTransactions(updatedTransactions)
         setShowConfirmBox(false);
         setTransactionToDelete(null);
         const { error } = await supabaseDelTransaction(transactionToDelete.id);
@@ -55,9 +34,9 @@ const TransactionList = ({ transactions, setTransactions, transactionHeadRef }) 
     }
 
     return (
-        <div className="transaction-list flex flex-col">
-            {transactions.map((transaction, index) => (
-                <div key={transaction.id} className="transaction-item flex" ref={el => transactionListRef.current[index] = el}>
+        <div className="transaction-list flex flex-col  ">
+            {tempTransactions.slice(0, 30).map((transaction) => (
+                <div key={transaction.id} className="transaction-item flex">
                     <div className="transaction-icon button" onClick={() => handleDeleteClick(transaction)}>
                         {transaction.transaction_category === 'income' ?
                             (<div className="transaction-icon-container income">
@@ -72,7 +51,7 @@ const TransactionList = ({ transactions, setTransactions, transactionHeadRef }) 
                     </div>
                     <div className="transaction-info flex flex-col">
                         <span className="transaction-note">{transaction.transaction_note}</span>
-                        <span className="transaction-date">{new Date(transaction.transaction_date).toLocaleString(navigator.language, {timeStyle: "short", dateStyle: "short"})}</span>
+                        <span className="transaction-date">{new Date(transaction.transaction_date).toLocaleString("id-ID", {timeStyle: "short", dateStyle: "short"})}</span>
                     </div>
                     <div className="transaction-amount flex flex-col">
                         <span>

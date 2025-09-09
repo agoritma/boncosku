@@ -1,0 +1,56 @@
+* {
+    --placeholder-color: rgb(241, 241, 241);
+}
+
+@keyframes slide {
+    0% {
+        left: -100px;
+    }
+
+    100% {
+        left: 100%;
+    }
+}
+
+.transaction-list.placeholder::after {
+    content: '';
+    background: rgba(255, 255, 255, 0.5);
+    filter: blur(20px);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 100%;
+    animation: 1.5s ease-in 1s infinite both slide;
+    -webkit-animation: 1.5s ease-in 1s infinite both slide;
+    -webkit-filter: blur(20px);
+}
+
+.transaction-list.placeholder {
+    .transaction-item {
+        .transaction-icon-container {
+            background-color: var(--placeholder-color);
+        }
+    
+        .transaction-info {
+            position: relative;
+            background-color: var(--placeholder-color);
+            width: 100%;
+            border-radius: 10px;
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            -ms-border-radius: 10px;
+            -o-border-radius: 10px;
+        }
+    
+        .transaction-amount {
+            background-color: var(--placeholder-color);
+            width: 15%;
+            border-radius: 10px;
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            -ms-border-radius: 10px;
+            -o-border-radius: 10px;
+        }
+    }
+}

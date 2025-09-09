@@ -1,9 +1,10 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import filterTransactions from '../../utils/filterTransactions';
 import TransactionList from './TransactionList';
 import TransactionFilter from './TransactionFilter';
 import TranscationSearch from './TransactionSearch';
 import Plus from '../../assets/icon/Plus';
+import TransactionListPlaceholder from './TransactionListPlaceholder';
 
 const TransactionSection = ({ transactions, setTransactions, setShowTransactionForm }) => {
     const [search, setSearch] = useState('');
@@ -31,7 +32,15 @@ const TransactionSection = ({ transactions, setTransactions, setShowTransactionF
                 <TranscationSearch setSearch={setSearch} />
                 <TransactionFilter categoryFilter={categoryFilter} amountFilter={amountFilter} setCategoryFilter={setCategoryFilter} setTimeFilter={setTimeFilter} timeFilter={timeFilter} setAmountFilter={setAmountFilter} setStartDateFilter={setStartDateFilter} startDateFilter={startDateFilter} setEndDateFilter={setEndDateFilter} />
             </div>
-            <TransactionList transactions={transactions} tempTransactions={tempTransactions} setTransaction={setTransactions} setTempTransactions={setTempTransactions} />
+            {transactions.length === 0 ?
+            <TransactionListPlaceholder />
+            : 
+            <TransactionList
+                transactions={transactions}
+                tempTransactions={tempTransactions}
+                setTransaction={setTransactions}
+                setTempTransactions={setTempTransactions} />
+            }
         </div>
     );
 }
