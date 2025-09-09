@@ -1,9 +1,9 @@
 import './style/TransactionListPlaceholder.css'
 
-const TransactionListPlaceholder = () => {
-    const transactionItemComponent = (key) => {
+export const TransactionListPlaceholder = ({ len }) => {
+    const TransactionItemComponent = (key) => {
         return (
-            <div key={key} className="transaction-item flex">
+            <div key={key} className="transaction-item placeholder flex">
                 <div className="transaction-icon">
                     <div className="transaction-icon-container"></div>
                 </div>
@@ -15,7 +15,7 @@ const TransactionListPlaceholder = () => {
 
     return (
         <div className="transaction-list placeholder flex flex-col">
-            {Array.from({ length: 15}).map((_, index) => transactionItemComponent(index))}
+            {Array.from({ length: len }).map((_, index) => TransactionItemComponent(index))}
         </div>
     )
 }

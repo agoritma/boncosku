@@ -33,7 +33,7 @@ const TransactionSection = ({ transactions, setTransactions, setShowTransactionF
                 <TransactionFilter categoryFilter={categoryFilter} amountFilter={amountFilter} setCategoryFilter={setCategoryFilter} setTimeFilter={setTimeFilter} timeFilter={timeFilter} setAmountFilter={setAmountFilter} setStartDateFilter={setStartDateFilter} startDateFilter={startDateFilter} setEndDateFilter={setEndDateFilter} />
             </div>
             {transactions.length === 0 ?
-            <TransactionListPlaceholder />
+            <TransactionListPlaceholder len={15}/>
             : 
             <TransactionList
                 transactions={transactions}
