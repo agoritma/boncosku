@@ -1,11 +1,18 @@
-const groupTransactionChart = (data) => {
+const groupTransactionChart = (data, dateTarget) => {
     const weekOrder = ['1-7', '8-14', '15-21', '22-28', '29-31']
     const weekMap = {}
     weekOrder.forEach(week => {
         weekMap[week] = { income: 0, outcome: 0 }
     })
 
-    data.forEach(item => {
+    const filteredData = data.filter(tx => {
+        const transactionDate = new Date(tx.transaction_date)
+        const targetYear = new Date(dateTarget).getFullYear()
+        const targetMonth = new Date(dateTarget).getMonth()
+        return transactionDate.getFullYear() === targetYear && (transactionDate.getMonth() === targetMonth)
+    })
+
+    filteredData.forEach(item => {
         const date = new Date(item.transaction_date)
         const day = date.getDate()
 
