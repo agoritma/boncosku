@@ -79,6 +79,7 @@ function App() {
 				setTransactions={setUserTransactions}
 				setShowTransactionForm={setShowTransactionForm}
 				transactions={userTransactions}
+				userInfo={userInfo}
 			/>
 			<div className="white-bar"></div>
 		</main>
