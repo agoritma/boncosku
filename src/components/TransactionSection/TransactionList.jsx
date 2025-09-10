@@ -6,6 +6,7 @@ import TrafficDown from "../../assets/icon/TrafficDown";
 import ConfirmBox from "../ConfirmBox/Index"
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import TransactionListInfo from "./TransactionListInfo";
+import TransactionItemPlaceholder from "./TransactionItemPlaceholder";
 
 const TransactionItem = React.memo(function TransactionItem({ transaction, onDelete, moneyFormat }) {
     return (
@@ -43,7 +44,7 @@ const TransactionItem = React.memo(function TransactionItem({ transaction, onDel
     )
 })
 
-const TransactionList = ({ transactions=[], tempTransactions=[], setTransaction, setTempTransactions }) => {
+const TransactionList = ({ transactions=[], tempTransactions=[], setTransaction, setTempTransactions, userInfo }) => {
     const [showConfirmBox, setShowConfirmBox] = useState(false);
     const [transactionToDelete, setTransactionToDelete] = useState(null);
 
@@ -109,11 +110,24 @@ const TransactionList = ({ transactions=[], tempTransactions=[], setTransaction,
     }
 
     return (
-        <div className="transaction-list flex flex-col  ">
+        <div className="transaction-list flex flex-col">
             {tempTransactions.slice(0, visibleCount).map((t) => (
                 <TransactionItem key={t.id} transaction={t} onDelete={stableDelete} moneyFormat={moneyFormat} />
             ))}
-            {transactions.length === 0 ? <TransactionListInfo text={'There nothing here! try add some transaction'} /> : null}
+            {!userInfo && <TransactionItemPlaceholder len={15}/>}
+            {transactions.length === 0 ?
+                (
+                    <>
+                        {!isAllTransaction ?
+                            <TransactionListInfo
+                            text={"There nothing here! try add some transaction or feel like you can't find your transaction?"}
+                            fetchMoreTransaction={true} setTransaction={setTransaction} setIsAllTransaction={setIsAllTransaction} />
+                            :
+                            <TransactionListInfo
+                            text={"There nothing here! try add some transaction"} />
+                        }
+                    </>
+                ): null }
             {!isAllTransaction ? (
                 <>
                     {visibleCount >= transactions.length && transactions.length !== 0 ? (

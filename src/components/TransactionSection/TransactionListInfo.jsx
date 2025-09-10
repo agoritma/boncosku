@@ -13,7 +13,7 @@ const TransactionListInfo = ({ text, fetchMoreTransaction=false, setTransaction,
 
             {fetchMoreTransaction && 
                 <div className="button-container">
-                    <div className="button button-box flex selected" onClick={handleMoreTransaction}>
+                    <div className="button button-box flex selected" onClick={handleMoreTransaction} style={{color: "black"}}>
                         Load all transactions
                     </div>
                 </div>

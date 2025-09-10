@@ -4,7 +4,6 @@ import TransactionList from './TransactionList';
 import TransactionFilter from './TransactionFilter';
 import TranscationSearch from './TransactionSearch';
 import Plus from '../../assets/icon/Plus';
-import TransactionListPlaceholder from './TransactionListPlaceholder';
 
 const TransactionSection = ({ transactions, setTransactions, setShowTransactionForm, userInfo }) => {
     const [search, setSearch] = useState('');
@@ -42,15 +41,12 @@ const TransactionSection = ({ transactions, setTransactions, setShowTransactionF
                 setEndDateFilter={setEndDateFilter}
                 endDateFilter={endDateFilter} />
             </div>
-            {transactions.length === 0 && !userInfo ?
-            <TransactionListPlaceholder len={12}/>
-            : 
             <TransactionList
                 transactions={transactions}
                 tempTransactions={tempTransactions}
                 setTransaction={setTransactions}
-                setTempTransactions={setTempTransactions} />
-            }
+                setTempTransactions={setTempTransactions}
+                userInfo={userInfo}/>
         </div>
     );
 }

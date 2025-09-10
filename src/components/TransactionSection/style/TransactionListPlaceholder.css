@@ -2,32 +2,8 @@
     --placeholder-color: rgb(241, 241, 241);
 }
 
-@keyframes slide {
-    0% {
-        left: -100px;
-    }
-
-    100% {
-        left: 100%;
-    }
-}
-
-.transaction-list.placeholder::after {
-    content: '';
-    background: rgba(255, 255, 255, 0.5);
-    filter: blur(20px);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 20px;
-    height: 100%;
-    animation: 1.5s ease-in 1s infinite both slide;
-    -webkit-animation: 1.5s ease-in 1s infinite both slide;
-    -webkit-filter: blur(20px);
-}
-
-.transaction-list.placeholder {
-    .transaction-item {
+.transaction-list {
+    .transaction-item.placeholder {
         .transaction-icon-container {
             background-color: var(--placeholder-color);
         }
