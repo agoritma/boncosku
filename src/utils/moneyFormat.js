@@ -1,5 +1,6 @@
 const moneyFormat = (num) => {
-    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    const formatedNumber = num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    return `Rp ${formatedNumber}`
 };
 
 export default moneyFormat;
