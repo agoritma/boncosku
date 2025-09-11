@@ -1,14 +1,16 @@
 import supabaseFetchTransaction from "../../api/supabaseFetchTransaction"
 
-const TransactionListInfo = ({ text, fetchMoreTransaction=false, setTransaction, setIsAllTransaction }) => {
+const TransactionListInfo = ({ text, fetchMoreTransaction=false, setTransaction, setIsAllTransaction, setIsloading }) => {
     const handleMoreTransaction = async () => {
+        setIsloading(true)
         const { data: transactionsData, error: transactionsError } = await supabaseFetchTransaction()
         setTransaction(transactionsData)
         setIsAllTransaction(true)
+        setIsloading(false)
     }
 
     return (
-        <div className="list-info flex flex-col flex-align-center round-15" style={{gap: "10px", height: '100px', color: 'grey'}}>
+        <div className="list-info flex flex-col flex-align-center round-15" style={{gap: "10px", color: 'grey'}}>
             <span>{text}</span>
 
             {fetchMoreTransaction && 

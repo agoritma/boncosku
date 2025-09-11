@@ -10,6 +10,7 @@ import TransactionItemPlaceholder from "./TransactionItemPlaceholder";
 
 const TransactionItem = React.memo(function TransactionItem({ transaction, onDelete, moneyFormat }) {
     return (
+        <>
         <div key={transaction.id} className="transaction-item flex">
             <div className="transaction-icon button" onClick={() => onDelete(transaction)}>
                 {transaction.transaction_category === 'income' ?
@@ -25,11 +26,8 @@ const TransactionItem = React.memo(function TransactionItem({ transaction, onDel
             </div>
             <div className="transaction-info flex flex-col">
                 <span className="transaction-note">{transaction.transaction_note}</span>
-                <span className="transaction-date">{new Date(transaction.transaction_date)
-                .toLocaleString("id-ID", {
-                    timeStyle: "short",
-                    dateStyle: "short"
-                    })}
+                <span className="transaction-category">
+                    {transaction.transaction_purpose !== '-' && transaction.transaction_purpose}
                 </span>
             </div>
             <div className="transaction-amount flex flex-col">
@@ -37,10 +35,19 @@ const TransactionItem = React.memo(function TransactionItem({ transaction, onDel
                     {transaction.transaction_category === 'income' ?
                         (<span className="amount-income">+ </span>) :
                         (<span className="amount-outcome">- </span>)}
-                    Rp {moneyFormat(transaction.transaction_amount)}
+                    {moneyFormat(transaction.transaction_amount)}
+                </span>
+                <span className="transaction-date">{new Date(transaction.transaction_date)
+                .toLocaleString("id-ID", {
+                    timeStyle: "short",
+                    dateStyle: "short",
+                    timeZone: "UTC"
+                    })}
                 </span>
             </div>
         </div>
+        <hr className="separator"/>
+        </>
     )
 })
 
@@ -121,7 +128,7 @@ const TransactionList = ({ transactions=[], tempTransactions=[], setTransaction,
                         {!isAllTransaction ?
                             <TransactionListInfo
                             text={"There nothing here! try add some transaction or feel like you can't find your transaction?"}
-                            fetchMoreTransaction={true} setTransaction={setTransaction} setIsAllTransaction={setIsAllTransaction} />
+                            fetchMoreTransaction={true} setTransaction={setTransaction} setIsAllTransaction={setIsAllTransaction} setIsloading={setIsLoading} />
                             :
                             <TransactionListInfo
                             text={"There nothing here! try add some transaction"} />
@@ -131,25 +138,39 @@ const TransactionList = ({ transactions=[], tempTransactions=[], setTransaction,
             {!isAllTransaction ? (
                 <>
                     {visibleCount >= transactions.length && transactions.length !== 0 ? (
-                        <TransactionListInfo
-                            text={"Feel like you can't find your transaction?"}
-                            fetchMoreTransaction={true}
-                            setTransaction={setTransaction}
-                            setIsAllTransaction={setIsAllTransaction}
-                        />
+                        <>
+                            {isLoading ?
+                                <TransactionItemPlaceholder len={5} />
+                                :
+                                <TransactionListInfo
+                                    text={"We only show transactions from the last 1 year, feel like you can't find your transaction?"}
+                                    fetchMoreTransaction={true}
+                                    setTransaction={setTransaction}
+                                    setIsAllTransaction={setIsAllTransaction}
+                                    setIsloading={setIsLoading}
+                                />
+                            }
+                        </>
                     ) : null}
                     {transactions.length !== 0 && tempTransactions.length === 0 ? (
-                        <TransactionListInfo
-                            text={"Feel like you can't find your transaction?"}
-                            fetchMoreTransaction={true}
-                            setTransaction={setTransaction}
-                            setIsAllTransaction={setIsAllTransaction}
-                        />
+                        <>
+                            {isLoading ?
+                                <TransactionItemPlaceholder len={5} />
+                                :   
+                                <TransactionListInfo
+                                    text={"We only show transactions from the last 1 year, feel like you can't find your transaction?"}
+                                    fetchMoreTransaction={true}
+                                    setTransaction={setTransaction}
+                                    setIsAllTransaction={setIsAllTransaction}
+                                    setIsloading={setIsLoading}
+                                />
+                            }
+                        </>
                     ) : null}
                 </>
             ) : (
                 <>
-                    {transactions.length !== 0 && tempTransactions.length === 0 ? <TransactionListInfo text={"Still can't find it? try add that transaction"} /> : null}
+                    {transactions.length !== 0 && tempTransactions.length === 0 ? <TransactionListInfo text={"There nothing here! try add some transaction"} /> : null}
                     {visibleCount >= transactions.length && transactions.length !== 0 ? <TransactionListInfo text={"There nothing left!"} /> : null}
                 </>
             )}
