@@ -8,6 +8,7 @@ const TransactionFormContainer = ({ transactionsList, updateTransactionList, use
     const [transactionAmount, setTransactionAmount] = useState('');
     const [transactionDate, setTransactionDate] = useState(null);
     const [transactionNote, setTransactionNote] = useState(null);
+    const [transactionPurpose, setTransactionPurpose] = useState('-');
 
     const handleSubmitTransaction = async () => {
         const submitTransactionStatus = await submitTransaction({
@@ -15,6 +16,8 @@ const TransactionFormContainer = ({ transactionsList, updateTransactionList, use
             transactionNote,
             transactionAmount,
             transactionDate,
+            transactionPurpose,
+            setTransactionPurpose,
             updateTransactionList,
             setTransactionAmount,
             setTransactionDate,
@@ -22,7 +25,6 @@ const TransactionFormContainer = ({ transactionsList, updateTransactionList, use
             userInfo,
             transactionsList
         });
-        console.log(submitTransactionStatus)
         if (submitTransactionStatus === "sucess") {
             setShowTransactionForm(false)
         } else {
@@ -46,9 +48,11 @@ const TransactionFormContainer = ({ transactionsList, updateTransactionList, use
                 transactionAmount={transactionAmount}
                 transactionDate={transactionDate}
                 transactionNote={transactionNote}
+                transactionPurpose={transactionPurpose}
                 updateTransactionAmount={setTransactionAmount}
                 updateTransactionDate={setTransactionDate}
                 updateTransactionNote={setTransactionNote}
+                updateTransactionPurpose={setTransactionPurpose}
             />
             <button id="submit" className="button button-box selected" onClick={handleSubmitTransaction}>Add Transaction</button>
         </div>
