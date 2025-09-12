@@ -26,8 +26,13 @@ const TransactionItem = React.memo(function TransactionItem({ transaction, onDel
             </div>
             <div className="transaction-info flex flex-col">
                 <span className="transaction-note">{transaction.transaction_note}</span>
-                <span className="transaction-category">
-                    {transaction.transaction_purpose !== '-' && transaction.transaction_purpose}
+                <span className="transaction-date">
+                    {new Date(transaction.transaction_date)
+                    .toLocaleString("id-ID", {
+                    timeStyle: "short",
+                    dateStyle: "short",
+                    timeZone: "UTC"
+                    })}
                 </span>
             </div>
             <div className="transaction-amount flex flex-col">
@@ -37,12 +42,8 @@ const TransactionItem = React.memo(function TransactionItem({ transaction, onDel
                         (<span className="amount-outcome">- </span>)}
                     {moneyFormat(transaction.transaction_amount)}
                 </span>
-                <span className="transaction-date">{new Date(transaction.transaction_date)
-                .toLocaleString("id-ID", {
-                    timeStyle: "short",
-                    dateStyle: "short",
-                    timeZone: "UTC"
-                    })}
+                <span className="transaction-category">
+                    {transaction.transaction_purpose !== '-' && transaction.transaction_purpose}
                 </span>
             </div>
         </div>

@@ -1,7 +1,10 @@
 import TrafficUp from '../../assets/icon/TrafficUp'
 import TrafficDown from '../../assets/icon/TrafficDown'
+import transactionPurposeList from '../../utils/transactionPurposeList'
 
-const TransactionFilter = ({ categoryFilter, amountFilter, setCategoryFilter, setTimeFilter, timeFilter, setAmountFilter, setStartDateFilter, startDateFilter, setEndDateFilter, endDateFilter }) => {
+const PurposeList = transactionPurposeList()
+
+const TransactionFilter = ({ categoryFilter, amountFilter, setCategoryFilter, purposeFilter, setPurposeFilter, setTimeFilter, timeFilter, setAmountFilter, setStartDateFilter, startDateFilter, setEndDateFilter, endDateFilter }) => {
     return (
         <div className="filter-section flex">
             <div className="filter flex">
@@ -31,6 +34,12 @@ const TransactionFilter = ({ categoryFilter, amountFilter, setCategoryFilter, se
                         <button className="button button-box flex selected" onClick={() => setAmountFilter(null)}><span>Lowest</span></button>
                     )
                 : <button className="button button-box flex" onClick={() => setAmountFilter('highest')}><span>Highest</span></button>}
+                <select name="purpose-filter" id="purpose-filter" defaultValue='*' onChange={(e) => setPurposeFilter(e.target.value)} className={`button button-box ${purposeFilter !== '*'}`}>
+                    <option value='*'>All</option>
+                    {PurposeList.map(p => (
+                        <option value={p.key} key={p.key}>{p.label}</option>
+                    ))}
+                </select>
             </div>
             <div className="date-filter flex">
                 <input name="startdate-filter" className="button-box" type="date" max={endDateFilter} onChange={(e) => setStartDateFilter(e.target.value)} />

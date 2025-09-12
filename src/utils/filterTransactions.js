@@ -1,4 +1,4 @@
-const filterTransactions = ({ transactions, setTempTransactions, search, startDateFilter, endDateFilter, categoryFilter, timeFilter, amountFilter }) => {
+const filterTransactions = ({ transactions, setTempTransactions, search, startDateFilter, endDateFilter, categoryFilter, timeFilter, amountFilter, purposeFilter }) => {
     let filteredTransactions = [...transactions];
     
     if (search !== '') {
@@ -34,6 +34,10 @@ const filterTransactions = ({ transactions, setTempTransactions, search, startDa
             if (amountFilter === 'highest') return amountA - amountB;
             return amountB - amountA;
         });
+    }
+
+    if (purposeFilter !== '*') {
+        filteredTransactions = filteredTransactions.filter(transaction => transaction.transaction_purpose === purposeFilter)
     }
 
     setTempTransactions(filteredTransactions.reverse());

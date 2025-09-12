@@ -30,6 +30,22 @@
   margin: 0;
 }
 
+#purpose-filter {
+  appearance: none;
+}
+
+#purpose-filter option {
+  background-color: var(--grey-color) !important;
+}
+
+#purpose-filter:hover{
+  background-color: var(--grey-color);
+}
+
+#purpose-filter.true{
+  background-color: var(--accent-color);
+}
+
 .white-bar {
   position: fixed;
   top: 0;

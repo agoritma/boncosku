@@ -10,13 +10,14 @@ const TransactionSection = ({ transactions, setTransactions, setShowTransactionF
     const [timeFilter, setTimeFilter] = useState('newest');
     const [amountFilter, setAmountFilter] = useState(null);
     const [categoryFilter, setCategoryFilter] = useState(null);
+    const [purposeFilter, setPurposeFilter] = useState('*')
     const [startDateFilter, setStartDateFilter] = useState(null);
     const [endDateFilter, setEndDateFilter] = useState(null);
     const [tempTransactions, setTempTransactions] = useState(transactions);
 
     useEffect(() => {
-        filterTransactions({ transactions, setTempTransactions, search, startDateFilter, endDateFilter, categoryFilter, timeFilter, amountFilter });
-    }, [timeFilter, amountFilter, categoryFilter, startDateFilter, endDateFilter, search, transactions]);
+        filterTransactions({ transactions, setTempTransactions, search, startDateFilter, endDateFilter, categoryFilter, timeFilter, amountFilter, purposeFilter });
+    }, [timeFilter, amountFilter, categoryFilter, startDateFilter, endDateFilter, search, transactions, purposeFilter]);
 
     return (
         <div className="transaction-section flex flex-col">
@@ -35,6 +36,8 @@ const TransactionSection = ({ transactions, setTransactions, setShowTransactionF
                 setCategoryFilter={setCategoryFilter}
                 setTimeFilter={setTimeFilter}
                 timeFilter={timeFilter}
+                purposeFilter={purposeFilter}
+                setPurposeFilter={setPurposeFilter}
                 setAmountFilter={setAmountFilter}
                 setStartDateFilter={setStartDateFilter}
                 startDateFilter={startDateFilter}
