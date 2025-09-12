@@ -8,6 +8,26 @@
   --lighter-accent-color: #f0ff7f;
   --alter-accent-color: #ff9494;
   --darker-alter-accent-color: #ed6e6e;
+  --cat-housing: #A8D5FF;
+  --cat-food: #FFD6A5;
+  --cat-groceries: #C8F0A8;
+  --cat-transport: #BEE3DB;
+  --cat-utilities: #FFF3B0;
+  --cat-health: #F7C6D6;
+  --cat-subscriptions: #E5D3FF;
+  --cat-entertainment: #FFCBC1;
+  --cat-savings: #C8F1E6;
+  --cat-travel: #BEE1FF;
+  --cat-transfers: #F0E6D6;
+  --cat-uncategorized: #BDBDBD;
+}
+
+.separator {
+  display: block;
+  border: 0;
+  border-top: 1px solid rgba(102, 102, 102, 0.1);
+  padding: 0;
+  margin: 0;
 }
 
 .white-bar {
@@ -300,7 +320,8 @@ main {
 }
 
 .transaction-section .input-section input,
-.transaction-form-section input {
+.transaction-form-section input,
+.transaction-form-section select {
   width: 100%;
   height: 42px;
   padding-left: 30px;
@@ -358,7 +379,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .transaction-list {
   width: 100%;
-  gap: 16px;
+  gap: 12px;
 }
 
 .transaction-list::-webkit-scrollbar {
@@ -432,7 +453,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .transaction-date,
-.transaction-curbalance {
+.transaction-curbalance,
+.transaction-category {
   color: var(--grey-icon-color);
   font-size: 0.75rem;
 }
@@ -554,6 +576,15 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .button-group .group {
   position: relative;
+}
+
+#transaction-purpose {
+  appearance: none;
+
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'><path d='M1 1 L6 6 L11 1' stroke='%23333' stroke-width='2.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-repeat: no-repeat;
+  background-position: calc(100% - 35px) center;
+  background-size: 10px 6px;
 }
 
 .button-group .group .currency {
