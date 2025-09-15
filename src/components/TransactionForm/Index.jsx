@@ -36,11 +36,11 @@ const TransactionFormContainer = ({ transactionsList, updateTransactionList, use
         <div className="transaction-form-section flex flex-col">
             <h2>New Transaction</h2>
             <div className="another-options flex">
-                <button className="button button-box" disabled>From Mutation</button>
+                {/* <button className="button button-box" disabled>From Mutation</button> */}
                 <button className="button button-box" disabled>From Image</button>
             </div>
-            <div className="option-section flex">
-                <hr></hr><span>or</span><hr></hr>
+            <div className="option-section flex" style={{color: '#cbcbcbff'}}>
+                <hr style={{borderColor: '#cbcbcbff'}}></hr><span>or</span><hr style={{borderColor: '#cbcbcbff'}}></hr>
             </div>
             <TransactionCategory updateTransactionCategory={setTransactionCategory} />
             <TransactionInput
