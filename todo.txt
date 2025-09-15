@@ -1,13 +1,10 @@
 Short:    
-    Transaction:
-        - filter category
-
     Recaps:
-        - tambahin chart category expenses
-        - tambahin chart income dan expeses juga buat liat recap bulan lama
+        - tambahin chart category expenses (pie chart)
+        - tambahin chart income dan expeses juga buat liat recap bulan lama (pie chart)
 
-    UI:
-        - benerin or ui di transaction form
+    UX:
+        - kalo transactin form lagi ke buka user bisa mencet enter buat input transaksi
 
 TBO:
     Auth:
